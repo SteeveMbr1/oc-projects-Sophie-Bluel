@@ -11,9 +11,11 @@ import SBApp from './SBApp.js'
     app.categories.push({ id: 0, name: 'Tous' })
     app.categories.push(...Categories)
 
+    app.works.push(...Works)
 
-    app.updateWorksList(Works);
+
+    app.updateWorksList(app.works);
     app.loadCategories(app.categories);
 
-
+    console.log(Works);
 })()

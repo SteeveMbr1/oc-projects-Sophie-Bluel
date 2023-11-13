@@ -21,6 +21,7 @@ export default class SBApp {
 
     updateWorksList(worksList) {
         const Works = document.querySelector('.gallery');
+        Works.innerHTML = "";
 
         worksList.forEach(w => {
             Works.appendChild(
@@ -47,11 +48,17 @@ export default class SBApp {
         categories.forEach(c => {
             const Category = this.newCategory(c);
 
+            console.log(c, activedId);
             (c.id === activedId) && Category.classList.add('active');
 
 
             Category.addEventListener('click', (el) => {
-                this.loadCategories(this.categories, Number(el.target.dataset.id));
+                const activedId = Number(el.target.dataset.id);
+
+                this.loadCategories(this.categories, activedId);
+                this.updateWorksList(
+                    this.works.filter((w) => !activedId || w.categoryId === activedId)
+                )
             })
             Categories.appendChild(Category);
         });
