@@ -7,6 +7,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+		integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+		crossorigin="anonymous" referrerpolicy="no-referrer">
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
 	<meta name="description" content="">
@@ -15,14 +18,17 @@
 </head>
 
 <body>
+	<div class="edit-banner modal-trigger">
+		<p><i class="fa-regular fa-pen-to-square"></i> Mode édition</p>
+	</div>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
 			<ul>
-				<li>projets</li>
-				<li>contact</li>
-				<li>login</li>
-				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+				<li><a href="index#portfolio">projets</a></li>
+				<li><a href="index#contact">contact</a></li>
+				<li><a href="login">login</a></li>
+				<li><img src="./assets/icons/instagram.svg" alt="Instagram"></li>
 			</ul>
 		</nav>
 	</header>
@@ -43,13 +49,15 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<h2>Mes Projets</h2>
+			<h2>Mes Projets
+				<a href="#" class="edit-btn toggle-edit">
+					<i class="fa-regular fa-pen-to-square"></i>
+					Modifier
+				</a>
+			</h2>
 			<div class="filters">
 				<ul>
 					<li class="filter-item active">Tous</li>
-					<li class="filter-item">Objets</li>
-					<li class="filter-item">Appartements</li>
-					<li class="filter-item">Hôtels & restaurants</li>
 				</ul>
 			</div>
 			<div class="gallery">
@@ -78,6 +86,36 @@
 			</ul>
 		</nav>
 	</footer>
+
+	<div class="modal-container">
+		<div class="modal-overlay modal-trigger"></div>
+		<div class="modal">
+			<span class="back-modal modal-trigger"><img src="assets/icons/arrow-left.svg"></span>
+			<span class="close-modal modal-trigger"><img src="assets\icons\x-close.svg"></span>
+			<h4>Ajout photo</h4>
+			<form action="">
+				<div class="uploadbox">
+					<img src="assets/icons/picture.svg" alt="">
+					<label class="file-upload">
+						<input type="file" />
+						+ Ajouter photo
+					</label>
+					<span class="upload-info">jpg, png : 4mo max</span>
+				</div>
+				<label for="title">Titre</label>
+				<input type="text" name="title" id="title">
+				<label for="categorie">Catégorie</label>
+				<select name="categorie" id="categorie">
+					<option value=""></option>
+					<option value="Objets">Objets</option>
+					<option value="Appartement">Appartement</option>
+					<option value="Hôtels & restaurants">Hôtels & restaurants</option>
+				</select>
+				<div class="line"></div>
+				<input class="button" type="button" value="Valider">
+			</form>
+		</div>
+	</div>
 </body>
 
 </html>

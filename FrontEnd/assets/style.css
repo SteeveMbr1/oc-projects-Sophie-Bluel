@@ -161,11 +161,11 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 4rem 0
 }
 
 section {
-	margin: 50px 0
+	margin: 150px 0;
 }
 
 h1 {
@@ -203,9 +203,212 @@ nav li {
 
 li:hover {
 	color: var(--gold-color);
-	;
 }
 
+
+
+/****************\
+*	EDIT MODE	 *
+\****************/
+
+
+.edit-banner {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 1rem 0;
+	background-color: #000;
+	color: white;
+	text-align: center;
+}
+
+.edit-btn {
+	padding-inline: 1rem;
+	font-size: 1rem;
+	color: black;
+	text-decoration: none;
+}
+
+.modal-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+}
+
+.modal-overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #333333d3;
+}
+
+.modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 50%;
+	max-width: 630px;
+	max-height: 80vh;
+
+	padding: 2rem 4rem;
+	background: #FFF;
+	border-radius: 5px;
+	transform: translate(-50%, -50%);
+
+	/* align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 2em; */
+}
+
+.back-modal img {
+	height: 0.8em;
+	width: 0.8em;
+	padding: 8px 10px;
+	border: none;
+	border-radius: 5px;
+	font-size: 18px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	cursor: pointer;
+	color: #000;
+}
+
+.close-modal img {
+	padding: 8px 10px;
+	border: none;
+	border-radius: 5px;
+	font-size: 18px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	color: #000;
+}
+
+.modal h4 {
+	font-size: 1.8em;
+	line-height: 2em;
+	margin-block: 0.5em;
+	text-align: center;
+}
+
+.modal .gallery {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+	overflow-y: auto;
+}
+
+.modal .gallery figure {
+	position: relative;
+	width: 80px;
+}
+
+
+.modal .gallery .fa-trash {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 5px;
+	margin: 5px;
+	color: #fff;
+	background-color: #000;
+	border-radius: 5px;
+}
+
+.modal .gallery img {
+	max-width: 100%;
+}
+
+.modal .line {
+	border-top: 1px solid #bbb;
+	width: 100%;
+	margin-block: 1em;
+}
+
+.modal .button {
+	display: inline-block;
+	border: none;
+	border-radius: 60px;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: var(--green-color);
+	text-align: center;
+	padding: 1em 2em;
+}
+
+.modal .button:hover {
+	cursor: pointer;
+	background-color: var(--green-2-color);
+}
+
+.modal form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	gap: 1em;
+}
+
+.modal .uploadbox {
+	background-color: #E8F1F6;
+	padding: 1em;
+	border-radius: 5px;
+}
+
+.modal .uploadbox>* {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin-block: 1em;
+}
+
+.modal input[type=file] {
+	display: none;
+}
+
+.modal .file-upload {
+	width: fit-content;
+	border: none;
+	border-radius: 50px;
+	background-color: #CBD6DC;
+	font-size: large;
+	color: #306685;
+	padding: 6px 12px;
+	cursor: pointer;
+}
+
+.mmodal .upload-info {
+	font-size: 10px;
+	color: #444444;
+}
+
+.modal label {
+	font-size: 1.2em;
+}
+
+.modal input[type=text] {
+	border: none;
+	background: #FFFFFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	height: 50px;
+	font-size: 1.2em;
+	padding-left: 1em;
+}
+
+.modal select {
+	border: none;
+	background: #FFFFFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	height: 50px;
+	font-size: 1.2em;
+	padding-left: 1em;
+}
 
 
 /****************\
@@ -349,6 +552,55 @@ input[type="submit"] {
 input[type="submit"]:hover {
 	background-color: var(--green-2-color);
 }
+
+
+/****************\
+*	   LogIn	 *
+\****************/
+
+
+#login {
+	width: 50%;
+	margin: 150px auto;
+}
+
+#login>* {
+	text-align: center;
+}
+
+#login h2 {
+	margin-bottom: 20px;
+}
+
+#login form {
+	text-align: left;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#login input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#login label {
+	margin: 2em 0 1em 0;
+}
+
+#login a {
+	text-align: center;
+	color: unset;
+}
+
+#error-msg {
+	color: #d24444;
+	text-align: center;
+	padding-bottom: 1rem;
+}
+
 
 
 /****************\

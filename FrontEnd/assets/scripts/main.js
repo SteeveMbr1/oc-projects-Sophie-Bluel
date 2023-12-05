@@ -1,9 +1,9 @@
-import SBApi from './SBApi.js'
-import SBApp from './SBApp.js'
+import Services from './services.js'
+import App from './app.js'
 
 (async () => {
-    const app = new SBApp()
-    const api = new SBApi()
+    const app = new App()
+    const api = new Services()
 
     const Works = await api.getWorks();
     const Categories = await api.getCategories();
@@ -17,5 +17,6 @@ import SBApp from './SBApp.js'
     app.updateWorksList(app.works);
     app.loadCategories(app.categories);
 
-    console.log(Works);
+
+
 })()
