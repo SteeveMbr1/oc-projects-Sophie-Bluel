@@ -17,6 +17,8 @@ import App from './app.js'
     app.updateWorksList(app.works);
     app.loadCategories(app.categories);
 
+    app.handleModal();
 
+    app.preview();
 
 })()

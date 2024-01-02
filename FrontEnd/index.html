@@ -50,14 +50,14 @@
 		</section>
 		<section id="portfolio">
 			<h2>Mes Projets
-				<a href="#" class="edit-btn toggle-edit">
+				<a href="#" class="edit-btn" data-modal-trigger data-modal-target="edit-mode">
 					<i class="fa-regular fa-pen-to-square"></i>
 					Modifier
 				</a>
 			</h2>
 			<div class="filters">
 				<ul>
-					<li class="filter-item active">Tous</li>
+					<li class="filter-item">Tous</li>
 				</ul>
 			</div>
 			<div class="gallery">
@@ -77,6 +77,128 @@
 				<input type="submit" value="Envoyer">
 			</form>
 		</section>
+
+		<div class="modal" id="edit-mode">
+			<div class="modal-overlay" data-modal-trigger data-modal-target=""></div>
+			<div class="modal-container">
+				<a href="#" class="close-modal" data-modal-trigger data-modal-target=""><img
+						src="assets/icons/x-close.svg" alt="" srcset=""></a>
+				<div class="modal-content">
+					<h4>Galerie photo</h4>
+					<div class="gallery">
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+						<figure>
+							<i class="fa-solid fa-trash"></i>
+							<img src="assets/images/abajour-tahina.png" alt="">
+						</figure>
+					</div>
+					<div class="line"></div>
+					<div class="button" data-modal-trigger data-modal-target="add-mode">Ajouter une photo</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal" id="add-mode">
+			<div class="modal-overlay" data-modal-trigger data-modal-target=""></div>
+			<div class="modal-container">
+				<a href="#" class="back-modal" data-modal-trigger data-modal-target="edit-mode"><img
+						src="assets/icons/arrow-left.svg" alt="" srcset=""></a>
+				<a href="#" class="close-modal" data-modal-trigger data-modal-target=""><img
+						src="assets/icons/x-close.svg" alt="" srcset=""></a>
+				<div class="modal-content">
+					<h4>Ajout photo</h4>
+					<form action="#" method="post">
+						<div class="uploadbox">
+							<img id="file-preview" src="assets/icons/picture.svg" alt="">
+							<label class="file-upload">
+								<input type="file" name="picture" />
+								+ Ajouter photo
+							</label>
+							<span class="upload-info">jpg, png : 4mo max</span>
+						</div>
+						<label for="title">Titre</label>
+						<input type="text" name="title" id="title">
+						<label for="categorie">Catégorie</label>
+						<select name="categorie" id="categorie">
+							<option value=""></option>
+							<option value="Objets">Objets</option>
+							<option value="Appartement">Appartement</option>
+							<option value="Hôtels & restaurants">Hôtels & restaurants</option>
+						</select>
+						<div class="line"></div>
+						<input class="button" type="submit" value="Valider">
+					</form>
+				</div>
+			</div>
+		</div>
+
 	</main>
 
 	<footer>
@@ -87,35 +209,6 @@
 		</nav>
 	</footer>
 
-	<div class="modal-container">
-		<div class="modal-overlay modal-trigger"></div>
-		<div class="modal">
-			<span class="back-modal modal-trigger"><img src="assets/icons/arrow-left.svg"></span>
-			<span class="close-modal modal-trigger"><img src="assets\icons\x-close.svg"></span>
-			<h4>Ajout photo</h4>
-			<form action="">
-				<div class="uploadbox">
-					<img src="assets/icons/picture.svg" alt="">
-					<label class="file-upload">
-						<input type="file" />
-						+ Ajouter photo
-					</label>
-					<span class="upload-info">jpg, png : 4mo max</span>
-				</div>
-				<label for="title">Titre</label>
-				<input type="text" name="title" id="title">
-				<label for="categorie">Catégorie</label>
-				<select name="categorie" id="categorie">
-					<option value=""></option>
-					<option value="Objets">Objets</option>
-					<option value="Appartement">Appartement</option>
-					<option value="Hôtels & restaurants">Hôtels & restaurants</option>
-				</select>
-				<div class="line"></div>
-				<input class="button" type="button" value="Valider">
-			</form>
-		</div>
-	</div>
 </body>
 
 </html>
