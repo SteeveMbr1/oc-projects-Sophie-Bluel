@@ -2,22 +2,32 @@ import Services from './services.js'
 import App from './app.js'
 
 (async () => {
-    const app = new App()
     const api = new Services()
+    const app = new App(api)
 
-    const Works = await api.getWorks();
-    const Categories = await api.getCategories();
+    const works = await api.getWorks();
+    const categories = await api.getCategories();
 
 
-    app.worksList = Works;
+    app.worksList = works;
     app.updateWorksList();
-    app.loadCategoriesFilters([{ id: 0, name: 'Tous' }, ...Categories]);
-    app.loadCategoriesOptions([{ id: 0, name: '' }, ...Categories]);
+    app.loadCategoriesFilters([{ id: 0, name: 'Tous' }, ...categories]);
+    app.loadCategoriesOptions([{ id: 0, name: '' }, ...categories]);
 
     app.handleModal();
 
-    app.preview();
+    app.previewPicture();
 
     app.postWork(api.postWork);
+
+    if (app.isAuth()) {
+        document.querySelectorAll('.auth').forEach(e => e.classList.remove('auth'))
+        const logbtn = document.querySelector('nav a[href=login]');
+        logbtn.innerHTML = 'logout';
+        logbtn.setAttribute('href', '/');
+        logbtn.addEventListener('click', (e) => {
+            app.logout()
+        })
+    }
 
 })()

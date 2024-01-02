@@ -18,15 +18,15 @@
 </head>
 
 <body>
-	<div class="edit-banner modal-trigger">
+	<div class="edit-banner modal-trigger auth">
 		<p><i class="fa-regular fa-pen-to-square"></i> Mode édition</p>
 	</div>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
 			<ul>
-				<li><a href="index#portfolio">projets</a></li>
-				<li><a href="index#contact">contact</a></li>
+				<li><a href="#portfolio">projets</a></li>
+				<li><a href="#contact">contact</a></li>
 				<li><a href="login">login</a></li>
 				<li><img src="./assets/icons/instagram.svg" alt="Instagram"></li>
 			</ul>
@@ -50,10 +50,10 @@
 		</section>
 		<section id="portfolio">
 			<h2>Mes Projets
-				<a href="#" class="edit-btn" data-modal-trigger data-modal-target="edit-mode">
+				<span class="edit-btn auth" data-modal-trigger data-modal-target="edit-mode">
 					<i class="fa-regular fa-pen-to-square"></i>
 					Modifier
-				</a>
+				</span>
 			</h2>
 			<div class="filters">
 				<ul>
@@ -77,87 +77,14 @@
 			</form>
 		</section>
 
-		<div class="modal" id="edit-mode">
+		<div class="modal active" id="edit-mode">
 			<div class="modal-overlay" data-modal-trigger data-modal-target=""></div>
 			<div class="modal-container">
-				<a href="#" class="close-modal" data-modal-trigger data-modal-target=""><img
-						src="assets/icons/x-close.svg" alt="" srcset=""></a>
+				<span class="close-modal" data-modal-trigger data-modal-target=""><img src="assets/icons/x-close.svg"
+						alt="" srcset=""></span>
 				<div class="modal-content">
 					<h4>Galerie photo</h4>
-					<div class="gallery">
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-						<figure>
-							<i class="fa-solid fa-trash"></i>
-							<img src="assets/images/abajour-tahina.png" alt="">
-						</figure>
-					</div>
+					<div class="gallery"></div>
 					<div class="line"></div>
 					<div class="button" data-modal-trigger data-modal-target="add-mode">Ajouter une photo</div>
 				</div>
@@ -167,29 +94,25 @@
 		<div class="modal" id="add-mode">
 			<div class="modal-overlay" data-modal-trigger data-modal-target=""></div>
 			<div class="modal-container">
-				<a href="#" class="back-modal" data-modal-trigger data-modal-target="edit-mode"><img
-						src="assets/icons/arrow-left.svg" alt="" srcset=""></a>
-				<a href="#" class="close-modal" data-modal-trigger data-modal-target=""><img
-						src="assets/icons/x-close.svg" alt="" srcset=""></a>
+				<span class="back-modal" data-modal-trigger data-modal-target="edit-mode"><img
+						src="assets/icons/arrow-left.svg" alt="" srcset=""></span>
+				<span class="close-modal" data-modal-trigger data-modal-target=""><img src="assets/icons/x-close.svg"
+						alt="" srcset=""></span>
 				<div class="modal-content">
 					<h4>Ajout photo</h4>
 					<form id="workForm" action="#" method="post">
 						<div class="uploadbox">
 							<img id="file-preview" src="assets/icons/picture.svg" alt="">
 							<label class="file-upload">
-								<input type="file" name="image" id="image" />
+								<input type="file" name="image" id="image" required />
 								+ Ajouter photo
 							</label>
 							<span class="upload-info">jpg, png : 4mo max</span>
 						</div>
 						<label for="title">Titre</label>
-						<input type="text" name="title" id="title">
+						<input type="text" name="title" id="title" required>
 						<label for="categorie">Catégorie</label>
-						<select name="category" id="categorie">
-							<option value=""></option>
-							<option value="1">Objets</option>
-							<option value="2">Appartement</option>
-							<option value="3">Hôtels & restaurants</option>
+						<select name="category" id="categorie" required>
 						</select>
 						<div class="line"></div>
 						<input type="submit" id="send" class="button" value="Valider">

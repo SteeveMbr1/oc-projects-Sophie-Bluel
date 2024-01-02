@@ -1,9 +1,15 @@
 export default class App {
 
+    service = null;
+
     currentModal = null;
     worksList = [];
+    categories = [];
 
+    constructor(service) {
+        this.service = service;
 
+    }
 
     newWorkCard(work) {
         const Work = document.createElement('figure');
@@ -23,7 +29,7 @@ export default class App {
     updateWorksList(category = 0) {
         const Gallery = document.querySelector('.gallery');
 
-        Gallery.innerHTML = "";
+        Gallery.replaceChildren();
 
         const workslist = this.worksList.filter(
             w => w.categoryId === category || !category
@@ -33,6 +39,33 @@ export default class App {
             Gallery.appendChild(
                 this.newWorkCard(work)
             );
+        });
+    }
+
+    loadWorksListModal() {
+        const Gallery = document.querySelector('.modal .gallery');
+
+        Gallery.replaceChildren();
+
+        this.worksList.forEach(w => {
+            const work = this.newWorkCard(w)
+            const trash = document.createElement('i');
+
+            trash.classList.add('fa-solid', 'fa-trash');
+            trash.addEventListener('click', () => {
+                console.log('click');
+                this.deleteWork(w.id);
+                this.worksList.splice(
+                    this.worksList.indexOf(w),
+                    1
+                );
+                work.remove();
+                this.loadWorksListModal();
+                this.updateWorksList();
+            })
+
+            work.appendChild(trash);
+            Gallery.appendChild(work);
         });
     }
 
@@ -67,12 +100,10 @@ export default class App {
         }).join('');
     }
 
-    async login(auth) {
-        const email = document.querySelector('#email').value
-        const pass = document.querySelector('#password').value
+    async login(email, pass) {
 
         try {
-            const json = await auth(email, pass);
+            const json = await this.service.login(email, pass);
             localStorage.setItem('token', json.token)
             window.location.replace('/')
         } catch (error) {
@@ -81,16 +112,35 @@ export default class App {
         }
     }
 
+    isAuth() {
+        return !!localStorage.getItem('token');
+    }
+
+    logout() {
+        localStorage.removeItem('token');
+    }
+
     async postWork(post) {
         const form = document.querySelector('#workForm');
 
 
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', async e => {
             e.preventDefault();
 
             const data = new FormData(form);
-            post(data, localStorage.getItem('token'));
+            try {
+                const work = await post(data, localStorage.getItem('token'));
+                this.worksList.push(work);
+                this.updateWorksList();
+                this.toggleModal();
+            } catch (error) {
+                console.log(error);
+            }
         })
+    }
+
+    deleteWork(id) {
+        this.service.deleteWork(id, localStorage.getItem('token'));
     }
 
     handleModal() {
@@ -103,6 +153,9 @@ export default class App {
                 this.toggleModal(modal);
             });
         }
+
+        const edditBtn = document.querySelector('.edit-btn');
+        edditBtn.addEventListener('click', () => this.loadWorksListModal());
     }
 
     toggleModal(modal) {
@@ -116,7 +169,7 @@ export default class App {
         return this.currentModal = modal;
     }
 
-    preview() {
+    previewPicture() {
         const input = document.querySelector('.file-upload>input');
         input.addEventListener("change", () => {
             const file = input.files[0];

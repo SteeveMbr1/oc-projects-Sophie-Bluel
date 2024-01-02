@@ -1,60 +1,53 @@
+const BASE_URL = "http://localhost:5678/api";
+
 export default class Service {
 
-    url = "http://localhost:5678/api";
 
     async getCategories() {
-        let jsonResponse = null;
-
         try {
-            const response = await fetch(this.url + "/categories");
-            jsonResponse = await response.json();
+            const response = await fetch(`${BASE_URL}/categories`);
+            return await response.json();
         } catch (error) {
             console.log(error)
             return error;
         }
-
-        return jsonResponse;
     }
 
     async getWorks() {
-        let jsonResponse = null;
-
-        try {
-            const response = await fetch(this.url + '/works');
-            jsonResponse = await response.json();
-        } catch (error) {
-            console.log(error);
-            return error;
-        }
-        return this.works = jsonResponse;
+        const response = await fetch(`${BASE_URL}/works`);
+        return await response.json();
     }
 
     async postWork(data, token) {
-        const headers = new Headers();
 
-        headers.append("Authorization", "Bearer " + token);
-
-
-        var requestOptions = {
+        const requestOptions = {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${token}` },
             body: data,
             redirect: 'follow'
         };
 
-        try {
-            const response = fetch('http://localhost:5678/api/works', requestOptions);
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-        }
+        const response = await fetch(`${BASE_URL}/works`, requestOptions);
+        return await response.json();
+    }
+
+    async deleteWork(id, token) {
+
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` },
+        };
+
+        const response = await fetch(`${BASE_URL}/works/${id}`, requestOptions);
+        return response;
+
     }
 
     async login(email, password) {
 
         const raw = JSON.stringify({ email, password })
 
-        const response = await fetch('http://localhost:5678/api/users/login', {
+        const response = await fetch(`${BASE_URL}/users/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: raw
@@ -65,7 +58,6 @@ export default class Service {
         }
 
         return await response.json();
-
     }
 
 

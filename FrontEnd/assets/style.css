@@ -156,6 +156,7 @@ body {
 	font-family: 'Work Sans';
 	font-size: 14px;
 	background-color: var(--bg-color);
+	scroll-behavior: smooth;
 }
 
 header {
@@ -196,6 +197,11 @@ nav ul {
 	list-style-type: none;
 }
 
+nav ul a {
+	text-decoration: none;
+	color: #000;
+}
+
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
@@ -228,6 +234,7 @@ li:hover {
 	font-size: 1rem;
 	color: black;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 
@@ -472,6 +479,8 @@ footer nav ul {
 	padding: 5px;
 
 	text-decoration: none;
+
+	cursor: pointer;
 }
 
 .close-modal {
@@ -483,6 +492,8 @@ footer nav ul {
 	padding: 5px;
 
 	text-decoration: none;
+
+	cursor: pointer;
 }
 
 .close-modal img,
@@ -496,7 +507,6 @@ footer nav ul {
 	top: 50%;
 	transform: translateY(-50%);
 
-
 	margin-inline: auto;
 	padding: 2rem 4rem;
 
@@ -507,6 +517,11 @@ footer nav ul {
 
 	overflow-y: auto;
 }
+
+.modal-container>* {
+	text-align: center;
+}
+
 
 .modal h4 {
 	font-size: 1.8em;
@@ -532,6 +547,10 @@ footer nav ul {
 	width: 80px;
 }
 
+.modal .gallery figcaption {
+	display: none;
+}
+
 .modal .gallery .fa-trash {
 	position: absolute;
 	right: 0;
@@ -541,6 +560,7 @@ footer nav ul {
 	color: #fff;
 	background-color: #000;
 	border-radius: 5px;
+	cursor: pointer;
 }
 
 .modal .gallery img {
@@ -640,4 +660,8 @@ footer nav ul {
 	height: 50px;
 	font-size: 1.2em;
 	padding-left: 1em;
+}
+
+.auth {
+	display: none;
 }
