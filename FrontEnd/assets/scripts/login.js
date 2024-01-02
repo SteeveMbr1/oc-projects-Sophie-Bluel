@@ -9,6 +9,6 @@ import App from './app.js'
 
     login_btn.addEventListener('click', (el) => {
         el.preventDefault();
-        app.login(api.auth);
+        app.login(api.login);
     });
 })()

@@ -8,17 +8,16 @@ import App from './app.js'
     const Works = await api.getWorks();
     const Categories = await api.getCategories();
 
-    app.categories.push({ id: 0, name: 'Tous' })
-    app.categories.push(...Categories)
 
-    app.works.push(...Works)
-
-
-    app.updateWorksList(app.works);
-    app.loadCategories(app.categories);
+    app.worksList = Works;
+    app.updateWorksList();
+    app.loadCategoriesFilters([{ id: 0, name: 'Tous' }, ...Categories]);
+    app.loadCategoriesOptions([{ id: 0, name: '' }, ...Categories]);
 
     app.handleModal();
 
     app.preview();
+
+    app.postWork(api.postWork);
 
 })()

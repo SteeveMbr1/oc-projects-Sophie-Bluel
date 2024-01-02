@@ -1,8 +1,7 @@
 export default class App {
 
-    categories = [];
-    works = [];
     currentModal = null;
+    worksList = [];
 
 
 
@@ -21,52 +20,51 @@ export default class App {
         return Work;
     }
 
-    updateWorksList(worksList) {
-        const _Works = document.querySelector('.gallery');
-        if (!_Works)
-            return null;
-        _Works.innerHTML = "";
+    updateWorksList(category = 0) {
+        const Gallery = document.querySelector('.gallery');
 
-        worksList.forEach(w => {
-            _Works.appendChild(
-                this.newWorkCard(w)
+        Gallery.innerHTML = "";
+
+        const workslist = this.worksList.filter(
+            w => w.categoryId === category || !category
+        )
+
+        workslist.forEach(work => {
+            Gallery.appendChild(
+                this.newWorkCard(work)
             );
         });
     }
 
-    newCategory(category) {
-        const Category = document.createElement('li');
+    updateCategoriesFilter(filter) {
+        const CategoriesFilter = document.querySelector('.filters ul');
 
-        Category.setAttribute('class', 'filter-item');
-        Category.setAttribute('data-id', category.id);
-        Category.innerHTML = category.name;
+        CategoriesFilter.querySelector('.active').classList.remove('active');
 
-        return Category;
+        filter.classList.add('active');
     }
 
-    loadCategories(categories, activedId = 0) {
-        const _Categories = document.querySelector('.filters ul');
-        if (!_Categories)
-            return null;
+    loadCategoriesFilters(categories) {
+        const CategoriesFilter = document.querySelector('.filters ul');
 
-        _Categories.innerHTML = '';
+        CategoriesFilter.innerHTML = categories.map(c => {
+            return `<li class="filter-item" data-id="${c.id}" >${c.name}</li>`;
+        }).join('');
 
-
-        categories.forEach(c => {
-            const Category = this.newCategory(c);
-
-            (c.id === activedId) && Category.classList.add('active');
-
-            Category.addEventListener('click', (el) => {
-                const activedId = Number(el.target.dataset.id);
-
-                this.loadCategories(this.categories, activedId);
-                this.updateWorksList(
-                    this.works.filter((w) => !activedId || w.categoryId === activedId)
-                )
+        CategoriesFilter.firstChild.classList.add('active')
+        CategoriesFilter.childNodes.forEach(c => {
+            c.addEventListener('click', () => {
+                this.updateCategoriesFilter(c);
+                this.updateWorksList(Number(c.dataset.id));
             })
-            _Categories.appendChild(Category);
-        });
+        })
+    }
+
+    loadCategoriesOptions(categories) {
+        const CategoryOptions = document.querySelector('select#categorie');
+        CategoryOptions.innerHTML = categories.map(e => {
+            return `<option value="${e.id}">${e.name}</option>`
+        }).join('');
     }
 
     async login(auth) {
@@ -74,12 +72,25 @@ export default class App {
         const pass = document.querySelector('#password').value
 
         try {
-            await auth(email, pass);
+            const json = await auth(email, pass);
+            localStorage.setItem('token', json.token)
             window.location.replace('/')
         } catch (error) {
             const error_msg = document.querySelector('#error-msg')
             error_msg.innerHTML = error.message
         }
+    }
+
+    async postWork(post) {
+        const form = document.querySelector('#workForm');
+
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            const data = new FormData(form);
+            post(data, localStorage.getItem('token'));
+        })
     }
 
     handleModal() {

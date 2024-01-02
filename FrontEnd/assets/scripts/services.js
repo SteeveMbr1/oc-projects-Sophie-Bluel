@@ -29,21 +29,28 @@ export default class Service {
         return this.works = jsonResponse;
     }
 
-    async addWork() {
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcwMDQ4ODMzNCwiZXhwIjoxNzAwNTc0NzM0fQ.9IcNt3xx-TRes1rx-8QHWFEtHVnUul_THAowYPNvQgU");
+    async postWork(data, token) {
+        const headers = new Headers();
 
-        var file = "<file contents here>";
+        headers.append("Authorization", "Bearer " + token);
+
 
         var requestOptions = {
             method: 'POST',
-            headers: myHeaders,
-            body: file,
+            headers: { 'Authorization': `Bearer ${token}` },
+            body: data,
             redirect: 'follow'
         };
+
+        try {
+            const response = fetch('http://localhost:5678/api/works', requestOptions);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    async auth(email, password) {
+    async login(email, password) {
 
         const raw = JSON.stringify({ email, password })
 
@@ -60,5 +67,6 @@ export default class Service {
         return await response.json();
 
     }
+
 
 }

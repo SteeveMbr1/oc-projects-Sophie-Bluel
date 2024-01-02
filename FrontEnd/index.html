@@ -61,7 +61,6 @@
 				</ul>
 			</div>
 			<div class="gallery">
-
 			</div>
 		</section>
 		<section id="contact">
@@ -174,11 +173,11 @@
 						src="assets/icons/x-close.svg" alt="" srcset=""></a>
 				<div class="modal-content">
 					<h4>Ajout photo</h4>
-					<form action="#" method="post">
+					<form id="workForm" action="#" method="post">
 						<div class="uploadbox">
 							<img id="file-preview" src="assets/icons/picture.svg" alt="">
 							<label class="file-upload">
-								<input type="file" name="picture" />
+								<input type="file" name="image" id="image" />
 								+ Ajouter photo
 							</label>
 							<span class="upload-info">jpg, png : 4mo max</span>
@@ -186,14 +185,14 @@
 						<label for="title">Titre</label>
 						<input type="text" name="title" id="title">
 						<label for="categorie">Catégorie</label>
-						<select name="categorie" id="categorie">
+						<select name="category" id="categorie">
 							<option value=""></option>
-							<option value="Objets">Objets</option>
-							<option value="Appartement">Appartement</option>
-							<option value="Hôtels & restaurants">Hôtels & restaurants</option>
+							<option value="1">Objets</option>
+							<option value="2">Appartement</option>
+							<option value="3">Hôtels & restaurants</option>
 						</select>
 						<div class="line"></div>
-						<input class="button" type="submit" value="Valider">
+						<input type="submit" id="send" class="button" value="Valider">
 					</form>
 				</div>
 			</div>
