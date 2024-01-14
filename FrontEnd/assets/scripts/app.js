@@ -128,8 +128,12 @@ export default class App {
             e.preventDefault();
 
             const data = new FormData(form);
+
             try {
                 const work = await post(data, localStorage.getItem('token'));
+                work.categoryId = parseInt(work.categoryId);
+                console.log(work);
+                console.log(this.worksList);
                 this.worksList.push(work);
                 this.updateWorksList();
                 this.toggleModal();
