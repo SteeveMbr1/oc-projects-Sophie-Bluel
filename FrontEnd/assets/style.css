@@ -609,12 +609,13 @@ footer nav ul {
 	border-radius: 5px;
 }
 
-.modal .uploadbox>* {
+.modal .uploadbox * {
 	display: block;
 	margin: auto;
 	text-align: center;
 	margin-block: 1em;
 }
+
 
 .modal input[type=file] {
 	display: none;
@@ -624,7 +625,7 @@ footer nav ul {
 	max-width: 240px;
 }
 
-.modal .file-upload {
+.modal .upload-btn {
 	width: fit-content;
 	border: none;
 	border-radius: 50px;

@@ -13,8 +13,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="./assets/style.css">
-	<script src="./assets/scripts/main.js" type="module"></script>
+	<link rel="stylesheet" href="assets/style.css">
+	<script src="assets/scripts/main.js" type="module"></script>
 </head>
 
 <body>
@@ -25,17 +25,17 @@
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
 			<ul>
-				<li><a href="#portfolio">projets</a></li>
-				<li><a href="#contact">contact</a></li>
-				<li><a href="login">login</a></li>
-				<li><img src="./assets/icons/instagram.svg" alt="Instagram"></li>
+				<li><a href="index.html#portfolio">projets</a></li>
+				<li><a href="index.html#contact">contact</a></li>
+				<li><a href="login.html">login</a></li>
+				<li><img src="assets/icons/instagram.svg" alt="Instagram"></li>
 			</ul>
 		</nav>
 	</header>
 	<main>
 		<section id="introduction">
 			<figure>
-				<img src="./assets/images/sophie-bluel.png" alt="">
+				<img src="assets/images/sophie-bluel.png" alt="">
 			</figure>
 			<article>
 				<h2>Designer d'espace</h2>
@@ -91,7 +91,7 @@
 			</div>
 		</div>
 
-		<div class="modal" id="add-mode">
+		<div class="modal active" id="add-mode">
 			<div class="modal-overlay" data-modal-trigger data-modal-target=""></div>
 			<div class="modal-container">
 				<span class="back-modal" data-modal-trigger data-modal-target="edit-mode"><img
@@ -103,11 +103,13 @@
 					<form id="workForm" action="#" method="post">
 						<div class="uploadbox">
 							<img id="file-preview" src="assets/icons/picture.svg" alt="">
-							<label class="file-upload">
-								<input type="file" name="image" id="image" required />
-								+ Ajouter photo
-							</label>
-							<span class="upload-info">jpg, png : 4mo max</span>
+							<div class="input-file">
+								<label class="upload-btn">
+									<input type="file" name="image" id="image" accept="image/png, image/jpg" required />
+									+ Ajouter photo
+								</label>
+								<span class="upload-info">jpg, png : 4mo max</span>
+							</div>
 						</div>
 						<label for="title">Titre</label>
 						<input type="text" name="title" id="title" required>

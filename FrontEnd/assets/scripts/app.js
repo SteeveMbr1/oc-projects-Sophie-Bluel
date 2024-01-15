@@ -8,7 +8,22 @@ export default class App {
 
     constructor(service) {
         this.service = service;
+    }
 
+    async init() {
+        this.worksList = await this.service.getWorks();
+        this.categories = await this.service.getCategories();
+
+        this.updateWorksList();
+        this.loadCategoriesFilters([{ id: 0, name: 'Tous' }, ...this.categories]);
+        this.loadCategoriesOptions([{ id: 0, name: '' }, ...this.categories]);
+        this.modalHandler();
+        this.previewPictureHandler();
+        this.postWorkHandler();
+        this.uploadFormInit();
+        if (this.isAuth()) {
+            this.showAuthMode()
+        }
     }
 
     newWorkCard(work) {
@@ -31,11 +46,11 @@ export default class App {
 
         Gallery.replaceChildren();
 
-        const workslist = this.worksList.filter(
+        const Workslist = this.worksList.filter(
             w => w.categoryId === category || !category
         )
 
-        workslist.forEach(work => {
+        Workslist.forEach(work => {
             Gallery.appendChild(
                 this.newWorkCard(work)
             );
@@ -48,24 +63,23 @@ export default class App {
         Gallery.replaceChildren();
 
         this.worksList.forEach(w => {
-            const work = this.newWorkCard(w)
-            const trash = document.createElement('i');
+            const Work = this.newWorkCard(w)
+            const Trash = document.createElement('i');
 
-            trash.classList.add('fa-solid', 'fa-trash');
-            trash.addEventListener('click', () => {
-                console.log('click');
+            Trash.classList.add('fa-solid', 'fa-trash');
+            Trash.addEventListener('click', () => {
                 this.deleteWork(w.id);
                 this.worksList.splice(
                     this.worksList.indexOf(w),
                     1
                 );
-                work.remove();
+                Work.remove();
                 this.loadWorksListModal();
                 this.updateWorksList();
             })
 
-            work.appendChild(trash);
-            Gallery.appendChild(work);
+            Work.appendChild(Trash);
+            Gallery.appendChild(Work);
         });
     }
 
@@ -120,7 +134,19 @@ export default class App {
         localStorage.removeItem('token');
     }
 
-    async postWork(post) {
+    showAuthMode() {
+        document.querySelectorAll('.auth').forEach(e => e.classList.remove('auth'))
+        document.querySelector('.filters').classList.add('auth');
+
+        const Logbtn = document.querySelector('nav a[href="login.html"]');
+        Logbtn.innerHTML = 'logout';
+        Logbtn.setAttribute('href', '/');
+        Logbtn.addEventListener('click', (e) => {
+            this.logout()
+        })
+    }
+
+    async postWorkHandler() {
         const form = document.querySelector('#workForm');
 
 
@@ -130,15 +156,14 @@ export default class App {
             const data = new FormData(form);
 
             try {
-                const work = await post(data, localStorage.getItem('token'));
+                const work = await this.service.postWork(data, localStorage.getItem('token'));
                 work.categoryId = parseInt(work.categoryId);
-                console.log(work);
-                console.log(this.worksList);
                 this.worksList.push(work);
                 this.updateWorksList();
                 this.toggleModal();
+                this.uploadFormInit();
             } catch (error) {
-                console.log(error);
+                console.error(error);
             }
         })
     }
@@ -147,23 +172,29 @@ export default class App {
         this.service.deleteWork(id, localStorage.getItem('token'));
     }
 
-    handleModal() {
-        const modalTriggers = document.querySelectorAll('[data-modal-trigger]');
-        for (const trigger of modalTriggers) {
+    modalHandler() {
+        const ModalTriggers = document.querySelectorAll('[data-modal-trigger]');
+        for (const Trigger of ModalTriggers) {
 
-            trigger.addEventListener('click', () => {
-                const targetId = trigger.dataset.modalTarget;
-                const modal = document.getElementById(targetId);
-                this.toggleModal(modal);
+            Trigger.addEventListener('click', () => {
+                const ModalId = Trigger.dataset.modalTarget;
+
+                this.toggleModal(
+                    document.getElementById(ModalId)
+                );
             });
         }
 
-        const edditBtn = document.querySelector('.edit-btn');
-        edditBtn.addEventListener('click', () => this.loadWorksListModal());
+        const EdditBtn = document.querySelector('.edit-btn');
+        EdditBtn.addEventListener('click', () => this.loadWorksListModal());
     }
 
     toggleModal(modal) {
-        document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
+        document.querySelectorAll('.modal.active')
+            .forEach(
+                m => m.classList.remove('active')
+            );
+
         if (this.currentModal)
             this.currentModal.classList.remove('active');
 
@@ -173,21 +204,36 @@ export default class App {
         return this.currentModal = modal;
     }
 
-    previewPicture() {
-        const input = document.querySelector('.file-upload>input');
-        input.addEventListener("change", () => {
-            const file = input.files[0];
-            if (file) {
-                const fileReader = new FileReader();
-                const preview = document.getElementById('file-preview');
+    previewPictureHandler() {
+        const Input = document.querySelector('.upload-btn>input');
 
-                fileReader.onload = function (event) {
-                    preview.setAttribute('src', event.target.result);
+        Input.addEventListener("change", () => {
+            const File = Input.files[0];
+
+            if (File) {
+                const FR = new FileReader();
+                const Preview = document.getElementById('file-preview');
+
+                FR.onload = function (event) {
+                    Preview.setAttribute('src', event.target.result);
                 }
-                fileReader.readAsDataURL(file);
+                FR.readAsDataURL(File);
+
+                document.querySelector('.input-file')
+                    .setAttribute('style', 'display: none');
             }
 
         });
+    }
+
+    uploadFormInit() {
+        document.getElementById('file-preview')
+            .setAttribute('src', "assets/icons/picture.svg");
+
+        document.querySelector('.input-file')
+            .setAttribute('style', 'display: block');
+
+        document.getElementById('workForm').reset();
     }
 
 }

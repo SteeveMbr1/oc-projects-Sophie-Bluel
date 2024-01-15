@@ -5,10 +5,9 @@ export default class Service {
 
     async getCategories() {
         try {
-            const response = await fetch(`${BASE_URL}/categories`);
-            return await response.json();
+            const Response = await fetch(`${BASE_URL}/categories`);
+            return await Response.json();
         } catch (error) {
-            console.log(error)
             return error;
         }
     }
@@ -20,44 +19,42 @@ export default class Service {
 
     async postWork(data, token) {
 
-        const requestOptions = {
+        const RequestOptions = {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${token}` },
             body: data,
             redirect: 'follow'
         };
 
-        const response = await fetch(`${BASE_URL}/works`, requestOptions);
-        return await response.json();
+        const Response = await fetch(`${BASE_URL}/works`, RequestOptions);
+        return await Response.json();
     }
 
     async deleteWork(id, token) {
 
-        const requestOptions = {
+        const RequestOptions = {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` },
         };
 
-        const response = await fetch(`${BASE_URL}/works/${id}`, requestOptions);
-        return response;
-
+        return await fetch(`${BASE_URL}/works/${id}`, RequestOptions);
     }
 
     async login(email, password) {
 
-        const raw = JSON.stringify({ email, password })
+        const Raw = JSON.stringify({ email, password })
 
-        const response = await fetch(`${BASE_URL}/users/login`, {
+        const Response = await fetch(`${BASE_URL}/users/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: raw
+            body: Raw
         })
 
-        if (response.status === 401 || response.status === 404) {
+        if (Response.status === 401 || Response.status === 404) {
             throw new Error('Login ou mot de passe incorrect')
         }
 
-        return await response.json();
+        return await Response.json();
     }
 
 
