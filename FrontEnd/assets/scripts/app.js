@@ -17,7 +17,7 @@ export default class App {
         this.updateWorksList();
         this.loadCategoriesFilters([{ id: 0, name: 'Tous' }, ...this.categories]);
         this.loadCategoriesOptions([{ id: 0, name: '' }, ...this.categories]);
-        this.modalHandler();
+        this.modalsInit();
         this.previewPictureHandler();
         this.postWorkHandler();
         this.uploadFormInit();
@@ -155,16 +155,17 @@ export default class App {
 
             const data = new FormData(form);
 
-            try {
-                const work = await this.service.postWork(data, localStorage.getItem('token'));
-                work.categoryId = parseInt(work.categoryId);
-                this.worksList.push(work);
-                this.updateWorksList();
-                this.toggleModal();
-                this.uploadFormInit();
-            } catch (error) {
-                console.error(error);
-            }
+            if (this.postFormValidator())
+                try {
+                    const work = await this.service.postWork(data, localStorage.getItem('token'));
+                    work.categoryId = parseInt(work.categoryId);
+                    this.worksList.push(work);
+                    this.updateWorksList();
+                    this.toggleModal();
+                    this.uploadFormInit();
+                } catch (error) {
+                    console.error(error);
+                }
         })
     }
 
@@ -172,7 +173,7 @@ export default class App {
         this.service.deleteWork(id, localStorage.getItem('token'));
     }
 
-    modalHandler() {
+    modalsInit() {
         const ModalTriggers = document.querySelectorAll('[data-modal-trigger]');
         for (const Trigger of ModalTriggers) {
 
@@ -185,8 +186,10 @@ export default class App {
             });
         }
 
-        const EdditBtn = document.querySelector('.edit-btn');
-        EdditBtn.addEventListener('click', () => this.loadWorksListModal());
+        document.getElementById('edit-btn')
+            .addEventListener('click', () => this.loadWorksListModal());
+        document.getElementById('add-mode-btn')
+            .addEventListener('click', () => this.uploadFormInit());
     }
 
     toggleModal(modal) {
@@ -226,6 +229,19 @@ export default class App {
         });
     }
 
+    postFormValidator() {
+        const Form = document.getElementById('workForm');
+
+        for (const attr of Form) {
+            if (!(attr.value && attr.value !== '0')) {
+                document.getElementById('send').disabled = true;
+                return false;
+            }
+        }
+        document.getElementById('send').disabled = false;
+        return true;
+    }
+
     uploadFormInit() {
         document.getElementById('file-preview')
             .setAttribute('src', "assets/icons/picture.svg");
@@ -233,7 +249,11 @@ export default class App {
         document.querySelector('.input-file')
             .setAttribute('style', 'display: block');
 
-        document.getElementById('workForm').reset();
+        document.getElementById('send').disabled = true;
+
+        const Form = document.getElementById('workForm')
+        Form.reset();
+        Form.onchange = () => this.postFormValidator();
     }
 
 }

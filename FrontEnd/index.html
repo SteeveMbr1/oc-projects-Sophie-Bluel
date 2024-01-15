@@ -50,7 +50,7 @@
 		</section>
 		<section id="portfolio">
 			<h2>Mes Projets
-				<span class="edit-btn auth" data-modal-trigger data-modal-target="edit-mode">
+				<span class="auth" id="edit-btn" data-modal-trigger data-modal-target="edit-mode">
 					<i class="fa-regular fa-pen-to-square"></i>
 					Modifier
 				</span>
@@ -86,15 +86,16 @@
 					<h4>Galerie photo</h4>
 					<div class="gallery"></div>
 					<div class="line"></div>
-					<div class="button" data-modal-trigger data-modal-target="add-mode">Ajouter une photo</div>
+					<div class="button" id="add-mode-btn" data-modal-trigger data-modal-target="add-mode">Ajouter une
+						photo</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="modal active" id="add-mode">
+		<div class="modal" id="add-mode">
 			<div class="modal-overlay" data-modal-trigger data-modal-target=""></div>
 			<div class="modal-container">
-				<span class="back-modal" data-modal-trigger data-modal-target="edit-mode"><img
+				<span class="back-modal" data-modal-trigger data-modal-target="bmode"><img
 						src="assets/icons/arrow-left.svg" alt="" srcset=""></span>
 				<span class="close-modal" data-modal-trigger data-modal-target=""><img src="assets/icons/x-close.svg"
 						alt="" srcset=""></span>
@@ -117,7 +118,7 @@
 						<select name="category" id="categorie" required>
 						</select>
 						<div class="line"></div>
-						<input type="submit" id="send" class="button" value="Valider">
+						<input type="submit" id="send" class="button" value="Valider" disabled>
 					</form>
 				</div>
 			</div>
